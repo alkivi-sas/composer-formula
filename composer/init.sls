@@ -5,7 +5,7 @@ composer-install-pkg:
   pkgrepo.managed:
     - name: {{ composer.lookup.apt }}
     - dist: trusty
-  pkg.latest:
+  pkg.installed:
     - name: {{ composer.lookup.pkgname }} 
     - refresh: True
     - force_yes: True
