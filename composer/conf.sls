@@ -15,7 +15,7 @@ composer-scripts_{{name}}:
     - template: jinja
     - context: 
         data:
-          {% for item in value.config|default("{}").split('\n')%}
+          {% for item in composer.get("config", "{}").split('\n')%}
           - "{{ item }}"
           {% endfor %}
     - unless: 'test -e {{value.path}}/composer.json'
