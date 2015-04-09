@@ -1,7 +1,7 @@
 # vim: sts=2 ts=2 sw=2 et ai
 {% from "composer/map.jinja" import composer with context %}
 
-{%- for name,value in composer.get("projects",[]).iterittems() %}
+{%- for name, value in composer.get("projects",[]).iteritems() %}
 
 # Install composer, working only have internet 
 composer_install_package_{{name}}:
