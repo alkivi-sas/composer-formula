@@ -31,7 +31,7 @@ composer_install_package_{{name}}:
       - file: composer-scripts_{{name}} 
 
 # Update composer install 
-{% if value.update is defined %}
+{% if value.update is not defined %}
 composer_update_{{name}}:
   cmd.run:
     - name: "/usr/bin/env composer update"
