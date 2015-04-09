@@ -13,6 +13,8 @@ composer-scripts_{{name}}:
     - source: salt://composer/files/config.tmpl
     - mode: 775
     - template: jinja
+    - require:
+      - pkg: php5-composer
     - context: 
         data:
           {% for item in composer.get("config", "{}").split('\n')%}
@@ -26,7 +28,7 @@ composer_install_package_{{name}}:
     - name: "/usr/bin/env composer install"
     - cwd: {{ value.path|default("/tmp") }}
     - require:
-      - file.managed: composer-scripts_{{name}} 
+      - file: composer-scripts_{{name}} 
 
 # Update composer install 
 {% if value.update is defined %}
@@ -35,7 +37,7 @@ composer_update_{{name}}:
     - name: "/usr/bin/env composer update"
     - cwd: {{ value.path|default("/tmp") }}
     - require:
-      - file.managed: composer-scripts_{{name}} 
+      - file: composer-scripts_{{name}} 
 {% endif %}
 
 
