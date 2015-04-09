@@ -8,7 +8,7 @@ composer-install-pkg:
   pkg.latest:
     - name: {{ composer.lookup.pkgname }} 
     - refresh: True
-    - forceyes: True
+    - force_yes: True
     - require:
       - pkgrepo: composer-install-pkg 
   cmd.run:
