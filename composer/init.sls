@@ -1,12 +1,12 @@
 # vim: sts=2 ts=2 sw=2 et ai
-{% from "stgserver/map.jinja" import stgserver with context %}
+{% from "composer/map.jinja" import composer with context %}
 
 composer-install-pkg:
   pkgrepo.managed:
-    - name: {{ stgserver.lookup.apt }}
+    - name: {{ composer.lookup.apt }}
     - dist: trusty
   pkg.latest:
-    - name: {{ stgserver.lookup.pkg-name }} 
+    - name: {{ composer.lookup.pkg-name }} 
     - refresh: True
     - forceyes: True
     - require:
