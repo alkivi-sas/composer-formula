@@ -6,7 +6,7 @@ composer-install-pkg:
     - name: {{ composer.lookup.apt }}
     - dist: trusty
   pkg.latest:
-    - name: {{ composer.lookup.pkg-name }} 
+    - name: {{ composer.lookup.pkgname }} 
     - refresh: True
     - forceyes: True
     - require:
