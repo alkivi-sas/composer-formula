@@ -6,6 +6,20 @@ include:
 
 {%- for name, value in composer.get("projects",[]).iteritems() %}
 
+# Create config if unexists
+composer-scripts_{{name}}:
+  file.managed:
+    - name: {{value.path|default("/tmp")}}/composer.json 
+    - source: salt://composer/files/config.tmpl
+    - mode: 775
+    - template: jinja
+    - context: 
+        data:
+          {% for item in value.config.split('\n')|default("{}") %}
+          - "{{ item }}"
+          {% endfor %}
+    - unless: 'test -e {{value.path}}/composer.json'
+
 # Install composer, working only have internet 
 composer_install_package_{{name}}:
   cmd.run:
@@ -13,7 +27,7 @@ composer_install_package_{{name}}:
     - cwd: {{ value.path|default("/tmp") }}
     - require:
       - pkg: php5-composer
-    - unless: 'test -e {{value.path}}/composer.json'
+      - file.managed: composer-scripts_{{name}} 
 
 # Update composer install 
 {% if value.update is defined %}
@@ -23,21 +37,8 @@ composer_update_{{name}}:
     - cwd: {{ value.path|default("/tmp") }}
     - require:
       - pkg: php5-composer
-    - unless: 'test -e {{value.path}}/composer.json'
+      - file.managed: composer-scripts_{{name}} 
 {% endif %}
 
-{% if value.config is defined %}
-composer-scripts_{{name}}:
-  file.managed:
-    - name: {{value.path|default("/tmp")}}/composer.json 
-    - source: salt://composer/files/config.tmpl
-    - mode: 775
-    - template: jinja
-    - context: 
-        data:
-          {% for item in value.config.split('\n') %}
-          - "{{ item }}"
-          {% endfor %}
-{% endif %}
 
 {%- endfor %}
