@@ -26,7 +26,6 @@ composer_install_package_{{name}}:
     - name: "/usr/bin/env composer install"
     - cwd: {{ value.path|default("/tmp") }}
     - require:
-      - pkg: php5-composer
       - file.managed: composer-scripts_{{name}} 
 
 # Update composer install 
@@ -36,7 +35,6 @@ composer_update_{{name}}:
     - name: "/usr/bin/env composer update"
     - cwd: {{ value.path|default("/tmp") }}
     - require:
-      - pkg: php5-composer
       - file.managed: composer-scripts_{{name}} 
 {% endif %}
 
