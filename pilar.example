@@ -1,0 +1,26 @@
+# vim: sts=2 ts=2 sw=2 et ai
+composer:
+  lookup:
+    pkg-name: "php5-composer" #default php5-composer
+  projects:
+    "project_name":
+      # Formula find composer.json in path and start composer install. Create dir vendor in path, add vendor in .gitignore plz
+      path: "/var/lib/www/htdocs"
+      # Update. start composer update from project
+      update: True
+      # If in path don't have composer.json, then composer don't start  or use section config
+      config: |
+        {
+          "require": {
+            "silex/silex":"dev-master",
+            "twig/twig":">=1.8,<2.0-dev"
+          }
+        }
+    "project_name2":
+      path: "/var/lib/www/2/htdocs"
+      config: |
+        {
+          "require": {
+            "silex/silex":"dev-master",
+          }
+        }
