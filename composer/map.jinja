@@ -1,15 +1,15 @@
 # vim: sts=2 ts=2 sw=2 et ai
 {% set composer  = salt['grains.filter_by']({
-  'Debian': {
-    'lookup': {
-        pkg-name: "php5-composer",
-        apt: "deb http://ppa.launchpad.net/duggan/composer/ubuntu trusty main",
+  'Debian':{
+    'lookup':{
+        'pkg-name': 'php5-composer',
+        'apt': 'deb http://ppa.launchpad.net/duggan/composer/ubuntu trusty main',
       }
   },
-  'default': {
-    'lookup': {
-        pkg-name: "php5-composer",
-        apt: "deb http://ppa.launchpad.net/duggan/composer/ubuntu trusty main",
+  'default':{
+    'lookup':{
+        'pkg-name': 'php5-composer',
+        'apt': 'deb http://ppa.launchpad.net/duggan/composer/ubuntu trusty main',
       }
   },
 }, merge=salt['pillar.get']('composer')) %}
