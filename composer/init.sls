@@ -6,12 +6,14 @@ composer-install-pkg:
     - name: {{ composer.lookup.apt }}
     - dist: trusty
   pkg.installed:
-    - name: {{ composer.lookup.pkgname }} 
+    - name: {{ composer.lookup.pkgname }}
     - refresh: True
     - force_yes: True
     - require:
-      - pkgrepo: composer-install-pkg 
+      - pkgrepo: composer-install-pkg
   cmd.run:
     - name: "composer self-update"
+    - env:
+      - HOME: '/root'
     - require:
       - pkg: composer-install-pkg
