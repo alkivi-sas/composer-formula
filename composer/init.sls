@@ -1,19 +1,12 @@
-# vim: sts=2 ts=2 sw=2 et ai
-{% from "composer/map.jinja" import composer with context %}
-
-composer-install-pkg:
-  pkgrepo.managed:
-    - name: {{ composer.lookup.apt }}
-    - dist: trusty
-  pkg.installed:
-    - name: {{ composer.lookup.pkgname }}
-    - refresh: True
-    - force_yes: True
-    - require:
-      - pkgrepo: composer-install-pkg
+get-composer:
   cmd.run:
-    - name: "composer self-update"
-    - env:
-      - HOME: '/root'
-    - require:
-      - pkg: composer-install-pkg
+    - name: 'CURL=`which curl`; $CURL -sS https://getcomposer.org/installer | php'
+    - unless: test -f /usr/local/bin/composer
+    - cwd: /root/
+
+install-composer:
+  cmd.wait:
+    - name: mv /root/composer.phar /usr/local/bin/composer
+    - cwd: /root/
+    - watch:
+      - cmd: get-composer
